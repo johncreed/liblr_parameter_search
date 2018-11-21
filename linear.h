@@ -37,6 +37,9 @@ struct parameter
 	double* weight;
 	double p;
 	double *init_sol;
+
+  /* these are parameter search param */
+  int break_count;
 };
 
 struct model
@@ -49,9 +52,25 @@ struct model
 	double bias;
 };
 
-struct model* train(const struct problem *prob, const struct parameter *param);
+struct validation_parameter
+{
+	const double delta1 = 0.1;
+	const double delta2 = 1e-5;
+	bool break_cond;
+};
+
+struct problem_folds{
+	int *perm;
+	int *fold_start;
+	int nr_fold;
+  double **init_sols;
+	problem *subprobs;
+};
+
+struct model* train(const struct problem *prob, const struct parameter *param, struct validation_parameter *val_param=NULL);
 void cross_validation(const struct problem *prob, const struct parameter *param, int nr_fold, double *target);
-void find_parameter_C(const struct problem *prob, const struct parameter *param, int nr_fold, double start_C, double max_C, double *best_C, double *best_rate);
+
+void classification_parameter_search(const struct problem *prob, const struct parameter *param, int nr_fold);
 
 double predict_values(const struct model *model_, const struct feature_node *x, double* dec_values);
 double predict(const struct model *model_, const struct feature_node *x);
@@ -69,6 +88,7 @@ double get_decfun_bias(const struct model *model_, int label_idx);
 void free_model_content(struct model *model_ptr);
 void free_and_destroy_model(struct model **model_ptr_ptr);
 void destroy_param(struct parameter *param);
+void free_and_destoy_problem_folds();
 
 const char *check_parameter(const struct problem *prob, const struct parameter *param);
 int check_probability_model(const struct model *model);

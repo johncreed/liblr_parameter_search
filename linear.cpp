@@ -472,14 +472,14 @@ void l2r_l2_svr_fun::grad(double *w, double *g)
 // A coordinate descent algorithm for
 // multi-class support vector machines by Crammer and Singer
 //
-//  min_{\alpha}  0.5 \sum_m ||w_m(\alpha)||^2 + \sum_i \sum_m e^m_i alpha^m_i
-//    s.t.     \alpha^m_i <= C^m_i \forall m,i , \sum_m \alpha^m_i=0 \forall i
+//	min_{\alpha}	0.5 \sum_m ||w_m(\alpha)||^2 + \sum_i \sum_m e^m_i alpha^m_i
+//		s.t.		 \alpha^m_i <= C^m_i \forall m,i , \sum_m \alpha^m_i=0 \forall i
 //
-//  where e^m_i = 0 if y_i  = m,
-//        e^m_i = 1 if y_i != m,
-//  C^m_i = C if m  = y_i,
-//  C^m_i = 0 if m != y_i,
-//  and w_m(\alpha) = \sum_i \alpha^m_i x_i
+//	where e^m_i = 0 if y_i	= m,
+//				e^m_i = 1 if y_i != m,
+//	C^m_i = C if m	= y_i,
+//	C^m_i = 0 if m != y_i,
+//	and w_m(\alpha) = \sum_i \alpha^m_i x_i
 //
 // Given:
 // x, y, C
@@ -787,20 +787,20 @@ void Solver_MCSVM_CS::Solve(double *w)
 // A coordinate descent algorithm for
 // L1-loss and L2-loss SVM dual problems
 //
-//  min_\alpha  0.5(\alpha^T (Q + D)\alpha) - e^T \alpha,
-//    s.t.      0 <= \alpha_i <= upper_bound_i,
+//	min_\alpha	0.5(\alpha^T (Q + D)\alpha) - e^T \alpha,
+//		s.t.			0 <= \alpha_i <= upper_bound_i,
 //
-//  where Qij = yi yj xi^T xj and
-//  D is a diagonal matrix
+//	where Qij = yi yj xi^T xj and
+//	D is a diagonal matrix
 //
 // In L1-SVM case:
-// 		upper_bound_i = Cp if y_i = 1
-// 		upper_bound_i = Cn if y_i = -1
-// 		D_ii = 0
+//		upper_bound_i = Cp if y_i = 1
+//		upper_bound_i = Cn if y_i = -1
+//		D_ii = 0
 // In L2-SVM case:
-// 		upper_bound_i = INF
-// 		D_ii = 1/(2*Cp)	if y_i = 1
-// 		D_ii = 1/(2*Cn)	if y_i = -1
+//		upper_bound_i = INF
+//		D_ii = 1/(2*Cp)	if y_i = 1
+//		D_ii = 1/(2*Cn)	if y_i = -1
 //
 // Given:
 // x, y, Cp, Cn
@@ -992,18 +992,18 @@ static void solve_l2r_l1l2_svc(
 // A coordinate descent algorithm for
 // L1-loss and L2-loss epsilon-SVR dual problem
 //
-//  min_\beta  0.5\beta^T (Q + diag(lambda)) \beta - p \sum_{i=1}^l|\beta_i| + \sum_{i=1}^l yi\beta_i,
-//    s.t.      -upper_bound_i <= \beta_i <= upper_bound_i,
+//	min_\beta  0.5\beta^T (Q + diag(lambda)) \beta - p \sum_{i=1}^l|\beta_i| + \sum_{i=1}^l yi\beta_i,
+//		s.t.			-upper_bound_i <= \beta_i <= upper_bound_i,
 //
-//  where Qij = xi^T xj and
-//  D is a diagonal matrix
+//	where Qij = xi^T xj and
+//	D is a diagonal matrix
 //
 // In L1-SVM case:
-// 		upper_bound_i = C
-// 		lambda_i = 0
+//		upper_bound_i = C
+//		lambda_i = 0
 // In L2-SVM case:
-// 		upper_bound_i = INF
-// 		lambda_i = 1/(2*C)
+//		upper_bound_i = INF
+//		lambda_i = 1/(2*C)
 //
 // Given:
 // x, y, p, C
@@ -1206,12 +1206,12 @@ static void solve_l2r_l1l2_svr(
 // A coordinate descent algorithm for
 // the dual of L2-regularized logistic regression problems
 //
-//  min_\alpha  0.5(\alpha^T Q \alpha) + \sum \alpha_i log (\alpha_i) + (upper_bound_i - \alpha_i) log (upper_bound_i - \alpha_i),
-//    s.t.      0 <= \alpha_i <= upper_bound_i,
+//	min_\alpha	0.5(\alpha^T Q \alpha) + \sum \alpha_i log (\alpha_i) + (upper_bound_i - \alpha_i) log (upper_bound_i - \alpha_i),
+//		s.t.			0 <= \alpha_i <= upper_bound_i,
 //
-//  where Qij = yi yj xi^T xj and
-//  upper_bound_i = Cp if y_i = 1
-//  upper_bound_i = Cn if y_i = -1
+//	where Qij = yi yj xi^T xj and
+//	upper_bound_i = Cp if y_i = 1
+//	upper_bound_i = Cn if y_i = -1
 //
 // Given:
 // x, y, Cp, Cn
@@ -1299,7 +1299,7 @@ void solve_l2r_lr_dual(const problem *prob, double *w, double eps, double Cp, do
 				sign = -1;
 			}
 
-			//  g_t(z) = z*log(z) + (C-z)*log(C-z) + 0.5a(z-alpha_old)^2 + sign*b(z-alpha_old)
+			//	g_t(z) = z*log(z) + (C-z)*log(C-z) + 0.5a(z-alpha_old)^2 + sign*b(z-alpha_old)
 			double alpha_old = alpha[ind1];
 			double z = alpha_old;
 			if(C - z < 0.5 * C)
@@ -1369,7 +1369,7 @@ void solve_l2r_lr_dual(const problem *prob, double *w, double eps, double Cp, do
 // A coordinate descent algorithm for
 // L1-regularized L2-loss support vector classification
 //
-//  min_w \sum |wj| + C \sum max(0, 1-yi w^T xi)^2,
+//	min_w \sum |wj| + C \sum max(0, 1-yi w^T xi)^2,
 //
 // Given:
 // x, y, Cp, Cn
@@ -1648,7 +1648,7 @@ static void solve_l1r_l2_svc(
 // A coordinate descent algorithm for
 // L1-regularized logistic regression problems
 //
-//  min_w \sum |wj| + C \sum log(1+exp(-yi w^T xi)),
+//	min_w \sum |wj| + C \sum log(1+exp(-yi w^T xi)),
 //
 // Given:
 // x, y, Cp, Cn
@@ -1977,7 +1977,7 @@ static void solve_l1r_lr(
 		newton_iter++;
 		Gmax_old = Gmax_new;
 
-		info("iter %3d  #CD cycles %d\n", newton_iter, iter);
+		info("iter %3d	#CD cycles %d\n", newton_iter, iter);
 	}
 
 	info("=========================\n");
@@ -2150,7 +2150,7 @@ static void group_classes(const problem *prob, int *nr_class_ret, int **label_re
 	free(data_label);
 }
 
-static void train_one(const problem *prob, const parameter *param, double *w, double Cp, double Cn)
+static void train_one(const problem *prob, const parameter *param, double *w, double Cp, double Cn, validation_parameter *val_param = NULL)
 {
 	//inner and outer tolerances for TRON
 	double eps = param->eps;
@@ -2183,6 +2183,8 @@ static void train_one(const problem *prob, const parameter *param, double *w, do
 			TRON tron_obj(fun_obj, primal_solver_tol, eps_cg);
 			tron_obj.set_print_string(liblinear_print_string);
 			tron_obj.tron(w);
+			if ( val_param != NULL && val_param->break_cond )
+				tron_obj.parameter_search_break_condition(w, val_param->break_cond, val_param->delta2);
 			delete fun_obj;
 			delete[] C;
 			break;
@@ -2201,6 +2203,8 @@ static void train_one(const problem *prob, const parameter *param, double *w, do
 			TRON tron_obj(fun_obj, primal_solver_tol, eps_cg);
 			tron_obj.set_print_string(liblinear_print_string);
 			tron_obj.tron(w);
+			if ( val_param != NULL && val_param->break_cond )
+				tron_obj.parameter_search_break_condition(w, val_param->break_cond, val_param->delta2);
 			delete fun_obj;
 			delete[] C;
 			break;
@@ -2263,40 +2267,10 @@ static void train_one(const problem *prob, const parameter *param, double *w, do
 	}
 }
 
-// Calculate the initial C for parameter selection
-static double calc_start_C(const problem *prob, const parameter *param)
-{
-	int i;
-	double xTx,max_xTx;
-	max_xTx = 0;
-	for(i=0; i<prob->l; i++)
-	{
-		xTx = 0;
-		feature_node *xi=prob->x[i];
-		while(xi->index != -1)
-		{
-			double val = xi->value;
-			xTx += val*val;
-			xi++;
-		}
-		if(xTx > max_xTx)
-			max_xTx = xTx;
-	}
-
-	double min_C = 1.0;
-	if(param->solver_type == L2R_LR)
-		min_C = 1.0 / (prob->l * max_xTx);
-	else if(param->solver_type == L2R_L2LOSS_SVC)
-		min_C = 1.0 / (2 * prob->l * max_xTx);
-
-	return pow( 2, floor(log(min_C) / log(2.0)) );
-}
-
-
 //
 // Interface functions
 //
-model* train(const problem *prob, const parameter *param)
+model* train(const problem *prob, const parameter *param, validation_parameter *val_param)
 {
 	int i,j;
 	int l = prob->l;
@@ -2395,8 +2369,10 @@ model* train(const problem *prob, const parameter *param)
 				else
 					for(i=0;i<w_size;i++)
 						model_->w[i] = 0;
-
-				train_one(&sub_prob, param, model_->w, weighted_C[0], weighted_C[1]);
+				if ( val_param != NULL )
+					train_one(&sub_prob, param, model_->w, weighted_C[0], weighted_C[1], val_param);
+				else
+					train_one(&sub_prob, param, model_->w, weighted_C[0], weighted_C[1]);
 			}
 			else
 			{
@@ -2422,7 +2398,10 @@ model* train(const problem *prob, const parameter *param)
 						for(j=0;j<w_size;j++)
 							w[j] = 0;
 
-					train_one(&sub_prob, param, w, weighted_C[i], param->C);
+					if( val_param != NULL)
+						train_one(&sub_prob, param, w, weighted_C[i], param->C, val_param);
+					else
+						train_one(&sub_prob, param, w, weighted_C[i], param->C);
 
 					for(j=0;j<w_size;j++)
 						model_->w[j*nr_class+i] = w[j];
@@ -2502,157 +2481,6 @@ void cross_validation(const problem *prob, const parameter *param, int nr_fold, 
 	free(perm);
 }
 
-void find_parameter_C(const problem *prob, const parameter *param, int nr_fold, double start_C, double max_C, double *best_C, double *best_rate)
-{
-	// variables for CV
-	int i;
-	int *fold_start;
-	int l = prob->l;
-	int *perm = Malloc(int, l);
-	double *target = Malloc(double, prob->l);
-	struct problem *subprob = Malloc(problem,nr_fold);
-
-	// variables for warm start
-	double ratio = 2;
-	double **prev_w = Malloc(double*, nr_fold);
-	for(i = 0; i < nr_fold; i++)
-		prev_w[i] = NULL;
-	int num_unchanged_w = 0;
-	struct parameter param1 = *param;
-	void (*default_print_string) (const char *) = liblinear_print_string;
-
-	if (nr_fold > l)
-	{
-		nr_fold = l;
-		fprintf(stderr,"WARNING: # folds > # data. Will use # folds = # data instead (i.e., leave-one-out cross validation)\n");
-	}
-	fold_start = Malloc(int,nr_fold+1);
-	for(i=0;i<l;i++) perm[i]=i;
-	for(i=0;i<l;i++)
-	{
-		int j = i+rand()%(l-i);
-		swap(perm[i],perm[j]);
-	}
-	for(i=0;i<=nr_fold;i++)
-		fold_start[i]=i*l/nr_fold;
-
-	for(i=0;i<nr_fold;i++)
-	{
-		int begin = fold_start[i];
-		int end = fold_start[i+1];
-		int j,k;
-
-		subprob[i].bias = prob->bias;
-		subprob[i].n = prob->n;
-		subprob[i].l = l-(end-begin);
-		subprob[i].x = Malloc(struct feature_node*,subprob[i].l);
-		subprob[i].y = Malloc(double,subprob[i].l);
-
-		k=0;
-		for(j=0;j<begin;j++)
-		{
-			subprob[i].x[k] = prob->x[perm[j]];
-			subprob[i].y[k] = prob->y[perm[j]];
-			++k;
-		}
-		for(j=end;j<l;j++)
-		{
-			subprob[i].x[k] = prob->x[perm[j]];
-			subprob[i].y[k] = prob->y[perm[j]];
-			++k;
-		}
-
-	}
-
-	*best_rate = 0;
-	if(start_C <= 0)
-		start_C = calc_start_C(prob,param);
-	param1.C = start_C;
-
-	while(param1.C <= max_C)
-	{
-		//Output disabled for running CV at a particular C
-		set_print_string_function(&print_null);
-
-		for(i=0; i<nr_fold; i++)
-		{
-			int j;
-			int begin = fold_start[i];
-			int end = fold_start[i+1];
-
-			param1.init_sol = prev_w[i];
-			struct model *submodel = train(&subprob[i],&param1);
-
-			int total_w_size;
-			if(submodel->nr_class == 2)
-				total_w_size = subprob[i].n;
-			else
-				total_w_size = subprob[i].n * submodel->nr_class;
-
-			if(prev_w[i] == NULL)
-			{
-				prev_w[i] = Malloc(double, total_w_size);
-				for(j=0; j<total_w_size; j++)
-					prev_w[i][j] = submodel->w[j];
-			}
-			else if(num_unchanged_w >= 0)
-			{
-				double norm_w_diff = 0;
-				for(j=0; j<total_w_size; j++)
-				{
-					norm_w_diff += (submodel->w[j] - prev_w[i][j])*(submodel->w[j] - prev_w[i][j]);
-					prev_w[i][j] = submodel->w[j];
-				}
-				norm_w_diff = sqrt(norm_w_diff);
-
-				if(norm_w_diff > 1e-15)
-					num_unchanged_w = -1;
-			}
-			else
-			{
-				for(j=0; j<total_w_size; j++)
-					prev_w[i][j] = submodel->w[j];
-			}
-
-			for(j=begin; j<end; j++)
-				target[perm[j]] = predict(submodel,prob->x[perm[j]]);
-
-			free_and_destroy_model(&submodel);
-		}
-		set_print_string_function(default_print_string);
-
-		int total_correct = 0;
-		for(i=0; i<prob->l; i++)
-			if(target[i] == prob->y[i])
-				++total_correct;
-		double current_rate = (double)total_correct/prob->l;
-		if(current_rate > *best_rate)
-		{
-			*best_C = param1.C;
-			*best_rate = current_rate;
-		}
-
-		info("log2c=%7.2f\trate=%g\n",log(param1.C)/log(2.0),100.0*current_rate);
-		num_unchanged_w++;
-		if(num_unchanged_w == 3)
-			break;
-		param1.C = param1.C*ratio;
-	}
-
-	if(param1.C > max_C && max_C > start_C)
-		info("warning: maximum C reached.\n");
-	free(fold_start);
-	free(perm);
-	free(target);
-	for(i=0; i<nr_fold; i++)
-	{
-		free(subprob[i].x);
-		free(subprob[i].y);
-		free(prev_w[i]);
-	}
-	free(prev_w);
-	free(subprob);
-}
 
 double predict_values(const struct model *model_, const struct feature_node *x, double *dec_values)
 {
@@ -2814,7 +2642,7 @@ int save_model(const char *model_file_name, const struct model *model_)
 // FSCANF helps to handle fscanf failures.
 // Its do-while block avoids the ambiguity when
 // if (...)
-//    FSCANF();
+//		FSCANF();
 // is used
 //
 #define FSCANF(_stream, _format, _var)do\
@@ -2990,7 +2818,7 @@ static inline double get_w_value(const struct model *model_, int idx, int label_
 
 // feat_idx: starting from 1 to nr_feature
 // label_idx: starting from 0 to nr_class-1 for classification models;
-//            for regression models, label_idx is ignored.
+//						for regression models, label_idx is ignored.
 double get_decfun_coef(const struct model *model_, int feat_idx, int label_idx)
 {
 	if(feat_idx > model_->nr_feature)
@@ -3034,6 +2862,19 @@ void destroy_param(parameter* param)
 		free(param->weight);
 	if(param->init_sol != NULL)
 		free(param->init_sol);
+}
+
+void free_and_destoy_problem_folds(struct problem_folds *folds){
+	free(folds->perm);
+	free(folds->fold_start);
+	for(int i = 0; i < folds->nr_fold; i++)
+	{
+		free( folds->init_sols[i] );
+		free( (folds->subprobs+i)->y );
+		free( (folds->subprobs+i)->x );
+	}
+	free(folds->init_sols);
+	free(folds->subprobs);
 }
 
 const char *check_parameter(const problem *prob, const parameter *param)
@@ -3087,5 +2928,220 @@ void set_print_string_function(void (*print_func)(const char*))
 		liblinear_print_string = &print_string_stdout;
 	else
 		liblinear_print_string = print_func;
+}
+
+problem_folds* split_data(const problem *prob, int nr_fold){
+	//Check nr_fold is valid
+	if (nr_fold > prob->l)
+	{
+		nr_fold = prob->l;
+		fprintf(stderr,"WARNING: # folds > # data. Will use # folds = # data instead (i.e., leave-one-out cross validation)\n");
+	}
+	problem_folds *prob_folds = Malloc(problem_folds, 1);
+	
+	int l = prob->l;
+	prob_folds->perm = Malloc(int, l);
+	prob_folds->nr_fold = nr_fold;
+	prob_folds->fold_start = Malloc(int, nr_fold+1);
+	prob_folds->init_sols = Malloc(double*, nr_fold);
+	prob_folds->subprobs = Malloc(problem, nr_fold);
+
+	int *perm = prob_folds->perm;
+	int *fold_start = prob_folds->fold_start;
+	double **init_sols = prob_folds->init_sols;
+	problem *subprobs = prob_folds->subprobs;
+	
+	srand(1);
+	for(int i = 0; i < l; i++) perm[i] = i;
+	for(int i = 0; i < l; i++)
+	{
+		int j = i+rand()%(l-i);
+		swap(perm[i],perm[j]);
+	}
+	for(int i=0;i<=nr_fold;i++)
+		fold_start[i]=i*l/nr_fold;
+
+	for(int i=0;i<nr_fold;i++)
+	{
+		init_sols[i] = NULL;
+		int begin = fold_start[i];
+		int end = fold_start[i+1];
+
+		subprobs[i].bias = prob->bias;
+		subprobs[i].n = prob->n;
+		subprobs[i].l = l-(end-begin);
+		subprobs[i].x = Malloc(struct feature_node*,subprobs[i].l);
+		subprobs[i].y = Malloc(double,subprobs[i].l);
+
+		int k = 0;
+		for(int j=0;j<begin;j++)
+		{
+			subprobs[i].x[k] = prob->x[perm[j]];
+			subprobs[i].y[k] = prob->y[perm[j]];
+			++k;
+		}
+		for(int j=end;j<l;j++)
+		{
+			subprobs[i].x[k] = prob->x[perm[j]];
+			subprobs[i].y[k] = prob->y[perm[j]];
+			++k;
+		}
+	}
+
+	return prob_folds;
+}
+
+void cross_validation_with_splits(const problem *prob, const problem_folds *prob_folds,const parameter *param, double *target, struct validation_parameter &val_param)
+{
+	//Fold data
+	int *perm = prob_folds->perm;
+	int *fold_start = prob_folds->fold_start;
+	double **init_sols = prob_folds->init_sols;
+	struct problem *subprob = prob_folds->subprobs;
+	int nr_fold = prob_folds->nr_fold;
+
+	struct parameter param1 = *param;
+
+	set_print_string_function(&print_null);
+	for(int i=0; i<nr_fold; i++)
+	{
+		param1.init_sol = init_sols[i];
+		struct model *submodel = train(&subprob[i], &param1, &val_param);
+
+		int total_w_size;
+		if(get_nr_class(submodel) == 2)
+			total_w_size = subprob[i].n;
+		else
+			total_w_size = subprob[i].n * get_nr_class(submodel);
+
+		if(init_sols[i] == NULL)
+			init_sols[i] = Malloc(double, total_w_size);
+
+		for(int j=0; j<total_w_size; j++)
+			init_sols[i][j] = submodel->w[j];
+
+		//Predict value on i-th fold
+		int begin = fold_start[i];
+		int end = fold_start[i+1];
+		for(int j=begin; j<end; j++)
+			target[perm[j]] = predict(submodel,prob->x[perm[j]]);
+
+		free_and_destroy_model(&submodel);
+	}
+}
+
+double calc_min_C(const problem *prob, const parameter *param, const validation_parameter &val_param)
+{
+	int i;
+	double xTx, max_xTx;
+	double phi, loss, yi_abs;
+	phi = loss = max_xTx = 0;
+	for(i=0; i<prob->l; i++)
+	{
+		xTx = 0;
+		feature_node *xi=prob->x[i];
+		yi_abs = (prob->y[i] >= 0)? prob->y[i] : -1.0 * prob->y[i];
+		while(xi->index != -1)
+		{
+			double val = xi->value;
+			xTx += val*val;
+			xi++;
+		}
+		if(xTx > max_xTx)
+			max_xTx = xTx;
+		if(param->solver_type == L2R_L2LOSS_SVR){
+			phi += max( yi_abs, 0.0 );
+			loss += max( yi_abs - param->p, 0.0) * max(yi_abs - param->p, 0.0);
+		}
+	}
+
+	if(loss == 0.0 && param->solver_type == L2R_L2LOSS_SVR){
+		fprintf( stderr, "param->p is too large!!!\n");
+		exit(1);
+	}
+
+	double min_C = 1.0;
+	if(param->solver_type == L2R_LR)
+		min_C = 1.0 / (prob->l * max_xTx);
+	else if(param->solver_type == L2R_L2LOSS_SVC)
+		min_C = 1.0 / (2 * prob->l * max_xTx);
+	else if(param->solver_type == L2R_L2LOSS_SVR)
+		min_C = val_param.delta1 * val_param.delta1 * loss / (8.0 * phi * phi * max_xTx);
+
+	return pow( 2, floor(log(min_C) / log(2.0)) );
+}
+
+double evaluate(const problem *prob ,const parameter *param, double *target)
+{
+	int total_correct = 0;
+	double total_error = 0;
+	double sumv = 0, sumy = 0, sumvv = 0, sumyy = 0, sumvy = 0;
+
+	if(param->solver_type == L2R_L2LOSS_SVR ||
+		 param->solver_type == L2R_L1LOSS_SVR_DUAL ||
+		 param->solver_type == L2R_L2LOSS_SVR_DUAL)
+	{
+		for(int i=0;i<prob->l;i++)
+		{
+			double y = prob->y[i];
+			double v = target[i];
+			total_error += (v-y)*(v-y);
+			sumv += v;
+			sumy += y;
+			sumvv += v*v;
+			sumyy += y*y;
+			sumvy += v*y;
+		}
+		return total_error / prob->l;
+	}
+	else
+	{
+		for(int i=0;i<prob->l;i++)
+			if(target[i] == prob->y[i])
+				++total_correct;
+		return (double) total_correct / prob->l;
+	}
+}
+
+void classification_parameter_search(const struct problem *prob, const struct parameter *param, int nr_fold){
+	//Set range of parameter
+	struct validation_parameter val_param;
+	double min_C = calc_min_C(prob, param, val_param);
+	double max_C = pow(2.0, 50);
+
+	//Split data
+	struct problem_folds *prob_folds = split_data(prob, nr_fold);
+
+	//Best score
+	double best_score = 0;
+	double best_C=-1;
+
+	//Run
+	struct parameter param1 = *param;
+	param1.eps = (1 - val_param.delta2) * param->eps;
+	param1.C = min_C;
+	double *target = Malloc(double, prob->l);
+	while( param1.C < max_C )
+	{
+		val_param.break_cond = true;
+		cross_validation_with_splits(prob, prob_folds, &param1, target, val_param);
+
+		double score = evaluate(prob, param, target);
+		if(best_score < score){
+			best_C = param1.C;
+			best_score = score;
+		}
+		
+		if( val_param.break_cond )
+			break;
+		
+		param1.C *= 2.0;
+	}
+	
+	// Print the best result
+	printf("Best log2C: %10.5f Best Acc: %10.5f\n",log(best_C)/log(2.0), best_score);
+
+	free_and_destoy_problem_folds(prob_folds);
+	free(target);
 }
 

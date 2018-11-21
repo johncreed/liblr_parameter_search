@@ -282,3 +282,27 @@ void TRON::set_print_string(void (*print_string) (const char *buf))
 {
 	tron_print_string = print_string;
 }
+
+void TRON::parameter_search_break_condition(double *w, bool &break_cond, const double &delta2){
+	int n = fun_obj->get_nr_variable();
+	double *w0 = new double[n];
+	double *gl = new double[n];
+	int inc = 1;
+
+	for (int i=0; i<n; i++)
+		w0[i] = 0;
+	fun_obj->fun(w0);
+	fun_obj->grad(w0, gl);
+	double glnorm0 = dnrm2_(&n, gl, &inc);
+	delete [] w0;
+
+	fun_obj->fun(w);
+	fun_obj->grad(w, gl);
+	for (int i = 0; i < n; i++)
+		gl[i] = gl[i] - w[i];
+	double glnorm = dnrm2_(&n, gl, &inc);
+  delete [] gl;
+
+	if( glnorm > eps / (1.0 - delta2) * glnorm0 )
+		break_cond = false;
+}
