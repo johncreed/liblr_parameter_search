@@ -472,14 +472,14 @@ void l2r_l2_svr_fun::grad(double *w, double *g)
 // A coordinate descent algorithm for
 // multi-class support vector machines by Crammer and Singer
 //
-//	min_{\alpha}	0.5 \sum_m ||w_m(\alpha)||^2 + \sum_i \sum_m e^m_i alpha^m_i
-//		s.t.		 \alpha^m_i <= C^m_i \forall m,i , \sum_m \alpha^m_i=0 \forall i
+//  min_{\alpha}  0.5 \sum_m ||w_m(\alpha)||^2 + \sum_i \sum_m e^m_i alpha^m_i
+//    s.t.     \alpha^m_i <= C^m_i \forall m,i , \sum_m \alpha^m_i=0 \forall i
 //
-//	where e^m_i = 0 if y_i	= m,
-//				e^m_i = 1 if y_i != m,
-//	C^m_i = C if m	= y_i,
-//	C^m_i = 0 if m != y_i,
-//	and w_m(\alpha) = \sum_i \alpha^m_i x_i
+//  where e^m_i = 0 if y_i  = m,
+//        e^m_i = 1 if y_i != m,
+//  C^m_i = C if m  = y_i,
+//  C^m_i = 0 if m != y_i,
+//  and w_m(\alpha) = \sum_i \alpha^m_i x_i
 //
 // Given:
 // x, y, C
@@ -787,20 +787,20 @@ void Solver_MCSVM_CS::Solve(double *w)
 // A coordinate descent algorithm for
 // L1-loss and L2-loss SVM dual problems
 //
-//	min_\alpha	0.5(\alpha^T (Q + D)\alpha) - e^T \alpha,
-//		s.t.			0 <= \alpha_i <= upper_bound_i,
+//  min_\alpha  0.5(\alpha^T (Q + D)\alpha) - e^T \alpha,
+//    s.t.      0 <= \alpha_i <= upper_bound_i,
 //
-//	where Qij = yi yj xi^T xj and
-//	D is a diagonal matrix
+//  where Qij = yi yj xi^T xj and
+//  D is a diagonal matrix
 //
 // In L1-SVM case:
-//		upper_bound_i = Cp if y_i = 1
-//		upper_bound_i = Cn if y_i = -1
-//		D_ii = 0
+// 		upper_bound_i = Cp if y_i = 1
+// 		upper_bound_i = Cn if y_i = -1
+// 		D_ii = 0
 // In L2-SVM case:
-//		upper_bound_i = INF
-//		D_ii = 1/(2*Cp)	if y_i = 1
-//		D_ii = 1/(2*Cn)	if y_i = -1
+// 		upper_bound_i = INF
+// 		D_ii = 1/(2*Cp)	if y_i = 1
+// 		D_ii = 1/(2*Cn)	if y_i = -1
 //
 // Given:
 // x, y, Cp, Cn
@@ -992,18 +992,18 @@ static void solve_l2r_l1l2_svc(
 // A coordinate descent algorithm for
 // L1-loss and L2-loss epsilon-SVR dual problem
 //
-//	min_\beta  0.5\beta^T (Q + diag(lambda)) \beta - p \sum_{i=1}^l|\beta_i| + \sum_{i=1}^l yi\beta_i,
-//		s.t.			-upper_bound_i <= \beta_i <= upper_bound_i,
+//  min_\beta  0.5\beta^T (Q + diag(lambda)) \beta - p \sum_{i=1}^l|\beta_i| + \sum_{i=1}^l yi\beta_i,
+//    s.t.      -upper_bound_i <= \beta_i <= upper_bound_i,
 //
-//	where Qij = xi^T xj and
-//	D is a diagonal matrix
+//  where Qij = xi^T xj and
+//  D is a diagonal matrix
 //
 // In L1-SVM case:
-//		upper_bound_i = C
-//		lambda_i = 0
+// 		upper_bound_i = C
+// 		lambda_i = 0
 // In L2-SVM case:
-//		upper_bound_i = INF
-//		lambda_i = 1/(2*C)
+// 		upper_bound_i = INF
+// 		lambda_i = 1/(2*C)
 //
 // Given:
 // x, y, p, C
@@ -1206,12 +1206,12 @@ static void solve_l2r_l1l2_svr(
 // A coordinate descent algorithm for
 // the dual of L2-regularized logistic regression problems
 //
-//	min_\alpha	0.5(\alpha^T Q \alpha) + \sum \alpha_i log (\alpha_i) + (upper_bound_i - \alpha_i) log (upper_bound_i - \alpha_i),
-//		s.t.			0 <= \alpha_i <= upper_bound_i,
+//  min_\alpha  0.5(\alpha^T Q \alpha) + \sum \alpha_i log (\alpha_i) + (upper_bound_i - \alpha_i) log (upper_bound_i - \alpha_i),
+//    s.t.      0 <= \alpha_i <= upper_bound_i,
 //
-//	where Qij = yi yj xi^T xj and
-//	upper_bound_i = Cp if y_i = 1
-//	upper_bound_i = Cn if y_i = -1
+//  where Qij = yi yj xi^T xj and
+//  upper_bound_i = Cp if y_i = 1
+//  upper_bound_i = Cn if y_i = -1
 //
 // Given:
 // x, y, Cp, Cn
@@ -1299,7 +1299,7 @@ void solve_l2r_lr_dual(const problem *prob, double *w, double eps, double Cp, do
 				sign = -1;
 			}
 
-			//	g_t(z) = z*log(z) + (C-z)*log(C-z) + 0.5a(z-alpha_old)^2 + sign*b(z-alpha_old)
+			//  g_t(z) = z*log(z) + (C-z)*log(C-z) + 0.5a(z-alpha_old)^2 + sign*b(z-alpha_old)
 			double alpha_old = alpha[ind1];
 			double z = alpha_old;
 			if(C - z < 0.5 * C)
@@ -1369,7 +1369,7 @@ void solve_l2r_lr_dual(const problem *prob, double *w, double eps, double Cp, do
 // A coordinate descent algorithm for
 // L1-regularized L2-loss support vector classification
 //
-//	min_w \sum |wj| + C \sum max(0, 1-yi w^T xi)^2,
+//  min_w \sum |wj| + C \sum max(0, 1-yi w^T xi)^2,
 //
 // Given:
 // x, y, Cp, Cn
@@ -1648,7 +1648,7 @@ static void solve_l1r_l2_svc(
 // A coordinate descent algorithm for
 // L1-regularized logistic regression problems
 //
-//	min_w \sum |wj| + C \sum log(1+exp(-yi w^T xi)),
+//  min_w \sum |wj| + C \sum log(1+exp(-yi w^T xi)),
 //
 // Given:
 // x, y, Cp, Cn
@@ -1977,7 +1977,7 @@ static void solve_l1r_lr(
 		newton_iter++;
 		Gmax_old = Gmax_new;
 
-		info("iter %3d	#CD cycles %d\n", newton_iter, iter);
+		info("iter %3d  #CD cycles %d\n", newton_iter, iter);
 	}
 
 	info("=========================\n");
