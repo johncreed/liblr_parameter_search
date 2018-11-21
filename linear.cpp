@@ -3075,7 +3075,6 @@ double evaluate(const problem *prob ,const parameter *param, double *target)
 {
 	int total_correct = 0;
 	double total_error = 0;
-	double sumv = 0, sumy = 0, sumvv = 0, sumyy = 0, sumvy = 0;
 
 	if(param->solver_type == L2R_L2LOSS_SVR ||
 		 param->solver_type == L2R_L1LOSS_SVR_DUAL ||
@@ -3086,11 +3085,6 @@ double evaluate(const problem *prob ,const parameter *param, double *target)
 			double y = prob->y[i];
 			double v = target[i];
 			total_error += (v-y)*(v-y);
-			sumv += v;
-			sumy += y;
-			sumvv += v*v;
-			sumyy += y*y;
-			sumvy += v*y;
 		}
 		return total_error / prob->l;
 	}
@@ -3109,18 +3103,21 @@ void classification_parameter_search(const struct problem *prob, const struct pa
 	double min_C = calc_min_C(prob, param, val_param);
 	double max_C = pow(2.0, 50);
 
-	//Split data
+	//Split prob into prob folds for cross validation.
 	struct problem_folds *prob_folds = split_data(prob, nr_fold);
 
 	//Best score
 	double best_score = 0;
 	double best_C=-1;
 
-	//Run
+	//Set up parameter
 	struct parameter param1 = *param;
 	param1.eps = (1 - val_param.delta2) * param->eps;
 	param1.C = min_C;
+
+	//Predict value storage
 	double *target = Malloc(double, prob->l);
+
 	while( param1.C < max_C )
 	{
 		val_param.break_cond = true;
@@ -3137,9 +3134,9 @@ void classification_parameter_search(const struct problem *prob, const struct pa
 		
 		param1.C *= 2.0;
 	}
-	
+
 	// Print the best result
-	printf("Best log2C: %10.5f Best Acc: %10.5f\n",log(best_C)/log(2.0), best_score);
+	printf("Best log2C = %g CV accuracy = %g%%\n", best_C, 100.0*best_score);
 
 	free_and_destoy_problem_folds(prob_folds);
 	free(target);
