@@ -3136,7 +3136,7 @@ void classification_parameter_search(const struct problem *prob, const struct pa
 	}
 
 	// Print the best result
-	printf("Best log2C = %g CV accuracy = %g%%\n", best_C, 100.0*best_score);
+	printf("Best C = %g CV accuracy = %g%%\n", best_C, 100.0*best_score);
 
 	free_and_destoy_problem_folds(prob_folds);
 	free(target);
